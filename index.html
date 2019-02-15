@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Echarts 云图展示</title>
+    <script src="js/jquery.min.js"></script>
+    <!-- 此版本的echarts配置此版本的worldcloud 也可以实现,配置高版本的echarts颜色不能显示彩色,显示黑色 -->
+    <!-- <script src="js/echarts.js"></script> 
+        <script src="js/worldcloud.js"></script> -->
+    <!-- 新版本echarts配置下方的worldcloud -->
+    <script src="./dist/echarts.min.js"></script>
+    <script src="./dist/echarts-wordcloud.min.js"></script>
+</head>
+<body>
+    <div id="main" style="width:600px;height:400px;"></div>
+    <script>
+        $(function(){
+            var dataCloud = [
+            {"name": "云图","value": "200"},
+            {"name": "蒸羊羔","value": "156"},
+            {"name": "蒸熊掌","value": "122"},
+            {"name": "蒸鹿尾儿","value": "119"},
+            {"name": "烧花鸭","value": "108"},
+            {"name": "烧雏鸡","value": "101"},
+            {"name": "烧子鹅","value": "96"},
+            {"name": "卤猪","value": "84"},
+            {"name": "卤鸭","value": "58"},
+            {"name": "酱鸡","value": "55"},
+            {"name": "腊肉","value": "46"},
+            {"name": "晾肉","value": "28"},
+            {"name": "香肠儿","value": "27"},
+            {"name": "什锦苏盘","value": "26"},
+            {"name": "熏鸡白肚儿","value": "20"},
+            {"name": "清蒸八宝猪","value": "26"},
+            {"name": "江米酿鸭子","value": "26"},
+            {"name": "罐儿野鸡","value": "26"}];
+            
+            echartsCloud();//初始化echarts图
+            
+            function echartsCloud(){
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+
+                myChart.setOption({
+                    title: {
+                        text: 'echarts3云图展示',
+                        link: 'https://github.com/timdream/wordcloud2.js/blob/gh-pages/API.md'
+                    },
+                    tooltip: {},
+                    series: [{
+                        type : 'wordCloud',  //类型为字符云
+                            shape:'smooth',  //平滑 椭圆:ellipse 圆形:circle
+                            gridSize : 2,    //网格尺寸
+                            size : ['80%','80%'],
+                            //sizeRange : [ 50, 100 ],  
+                            rotationRange : [ 46, 80 ], //旋转范围
+                            textStyle : {  
+                                normal : {
+                                    fontFamily:'sans-serif',
+                                    color : function() { 
+                                        // 随机颜色
+                                        // var colors = ['#42a5f6', '#39d', '#94ecc3', "#90a0dd", "#9092f0", '#a6f8d2', '#7cc0f7', '#b0e9ce', '#1c4cd2', '#1c96ca', '#aff4cb','#00ffff','#00c7ff'];
+                                        // return colors[parseInt(Math.random() * 10)]; 
+                                        return 'rgb('  
+                                                + [ Math.round(Math.random() * 160),  
+                                                    Math.round(Math.random() * 160),  
+                                                    Math.round(Math.random() * 160)   
+                                                    ].join(',') + ')';  
+                                    }  
+                                },  
+                                emphasis : {  
+                                    shadowBlur : 5,       //阴影距离
+                                    shadowColor : '#333'  //阴影颜色
+                                }  
+                            },
+                            data:dataCloud,
+                    }]
+                });
+                // 异步加载数据
+                //  $.get('./cloud.json').done(function (data) {
+                //      // 填入数据
+                //      myChart.setOption({
+                //          series: [{
+                //              data: data.dataCloud
+                //          }]
+                //      });
+                //  });
+                // 将宽度设置 width: 100%; 可以设置自适应
+                $(window).resize(function () {
+                    myChart.resize();
+                });
+            } 
+        }) 
+    </script>
+</body>
+</html>
