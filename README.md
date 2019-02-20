@@ -1,4 +1,4 @@
-## echarts-worldcloud
+## echarts-wordcloud
 
 > 文档参考[echarts云图](https://github.com/timdream/wordcloud2.js/blob/gh-pages/API.md)
 
