@@ -4,4 +4,4 @@
 
 完成整的echarts云图效果
 
-![GitHub](./images/wordcloud.png)
+![GitHub](./images/worldcloud.png)
